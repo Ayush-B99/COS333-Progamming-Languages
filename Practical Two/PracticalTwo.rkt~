@@ -1,0 +1,193 @@
+#lang racket
+
+;; TASK 1: coneVolume
+
+(define (coneVolume r h)
+  (let ((pi (/ 22 7)))
+    (if (or (<= r 0) (<= h 0))
+        0
+        (/ (* pi r r h) 3))))
+
+;; Test cases for coneVolume
+(display "=== TASK 1: coneVolume Tests ===")
+(newline)
+
+;; Normal case: (coneVolume 1.5 2.1) should yield ~4.95
+(display "Test 1 - Normal case (1.5, 2.1): ")
+(display (coneVolume 1.5 2.1))
+(newline)
+
+;; Edge case: radius = 0
+(display "Test 2 - Radius = 0: ")
+(display (coneVolume 0 5))
+(newline)
+
+;; Edge case: height = 0
+(display "Test 3 - Height = 0: ")
+(display (coneVolume 5 0))
+(newline)
+
+;; Edge case: both zero
+(display "Test 4 - Both radius and height = 0: ")
+(display (coneVolume 0 0))
+(newline)
+
+;; Edge case: negative radius
+(display "Test 5 - Negative radius (-3, 5): ")
+(display (coneVolume -3 5))
+(newline)
+
+;; Edge case: negative height
+(display "Test 6 - Negative height (3, -5): ")
+(display (coneVolume 3 -5))
+(newline)
+
+;; Edge case: both negative
+(display "Test 7 - Both negative (-3, -5): ")
+(display (coneVolume -3 -5))
+(newline)
+
+;; Normal case: integers
+(display "Test 8 - Integer inputs (2, 3): ")
+(display (coneVolume 2 3))
+(newline)
+
+;; Normal case: larger values
+(display "Test 9 - Larger values (5, 10): ")
+(display (coneVolume 5 10))
+(newline)
+
+;; Normal case: fractional values
+(display "Test 10 - Fractional values (2.5, 3.5): ")
+(display (coneVolume 2.5 3.5))
+(newline)
+
+(newline)
+
+; TASK 2: countNonZeroValues
+
+(define (countNonZeroValues lst)
+  (cond
+    ((null? lst) 0)
+    ((zero? (car lst)) (countNonZeroValues (cdr lst)))
+    (else (+ 1 (countNonZeroValues (cdr lst))))))
+
+;; Test cases for countNonZeroValues
+(display "=== TASK 2: countNonZeroValues Tests ===")
+(newline)
+
+;; Empty list
+(display "Test 1 - Empty list: ")
+(display (countNonZeroValues '()))
+(newline)
+
+;; All zeros
+(display "Test 2 - All zeros (0 0): ")
+(display (countNonZeroValues '(0 0)))
+(newline)
+
+;; Mix of zero and non-zero (3 0 -8 0)
+(display "Test 3 - Mix (3 0 -8 0): ")
+(display (countNonZeroValues '(3 0 -8 0)))
+(newline)
+
+;; All non-zero positive
+(display "Test 4 - All non-zero positive (1 2 3): ")
+(display (countNonZeroValues '(1 2 3)))
+(newline)
+
+;; All non-zero negative
+(display "Test 5 - All non-zero negative (-1 -2 -3): ")
+(display (countNonZeroValues '(-1 -2 -3)))
+(newline)
+
+;; Single zero
+(display "Test 6 - Single zero (0): ")
+(display (countNonZeroValues '(0)))
+(newline)
+
+;; Single non-zero
+(display "Test 7 - Single non-zero (5): ")
+(display (countNonZeroValues '(5)))
+(newline)
+
+;; Mix with multiple zeros at different positions
+(display "Test 8 - Zeros at start and end (0 1 2 0): ")
+(display (countNonZeroValues '(0 1 2 0)))
+(newline)
+
+;; Large list
+(display "Test 9 - Larger list (1 0 2 0 3 0 4 0 5): ")
+(display (countNonZeroValues '(1 0 2 0 3 0 4 0 5)))
+(newline)
+
+;; Mix of positive and negative
+(display "Test 10 - Mix of positive and negative (-5 0 3 -2 0 7): ")
+(display (countNonZeroValues '(-5 0 3 -2 0 7)))
+(newline)
+
+(newline)
+
+; TASK 3: doubleEverySecondElement
+
+(define (doubleEverySecondElement lst)
+  (define (helper lst position)
+    (cond
+      ((null? lst) '())
+      ((even? position) (cons (* 2 (car lst)) (helper (cdr lst) (+ position 1))))
+      (else (helper (cdr lst) (+ position 1)))))
+  (helper lst 2))
+
+;; Test cases for doubleEverySecondElement
+(display "=== TASK 3: doubleEverySecondElement Tests ===")
+(newline)
+
+;; Empty list
+(display "Test 1 - Empty list: ")
+(display (doubleEverySecondElement '()))
+(newline)
+
+;; Single element (should return empty)
+(display "Test 2 - Single element (4): ")
+(display (doubleEverySecondElement '(4)))
+(newline)
+
+;; Two elements (4 6) -> (12)
+(display "Test 3 - Two elements (4 6): ")
+(display (doubleEverySecondElement '(4 6)))
+(newline)
+
+;; Four elements (4 6 2 3) -> (12 6)
+(display "Test 4 - Four elements (4 6 2 3): ")
+(display (doubleEverySecondElement '(4 6 2 3)))
+(newline)
+
+;; Odd length list (1 2 3 4 5) -> (4 8)
+(display "Test 5 - Odd length (1 2 3 4 5): ")
+(display (doubleEverySecondElement '(1 2 3 4 5)))
+(newline)
+
+;; Even length list (1 2 3 4) -> (4 8)
+(display "Testing even length (1 2 3 4): ")
+(display (doubleEverySecondElement '(1 2 3 4)))
+(newline)
+
+;; negative num
+(display "Testing With - values (5 -3 7 -2): ")
+(display (doubleEverySecondElement '(5 -3 7 -2)))
+(newline)
+
+;; testing w 0s
+(display "TestingWith zeros (0 1 0 2 0 3): ")
+(display (doubleEverySecondElement '(0 1 0 2 0 3)))
+(newline)
+
+;; Larger list
+(display "Test 9 - Larger list (1 2 3 4 5 6 7 8): ")
+(display (doubleEverySecondElement '(1 2 3 4 5 6 7 8)))
+(newline)
+
+;; Single element list (only one value, so no second element)
+(display "Test 10 - Three elements (10 20 30): ")
+(display (doubleEverySecondElement '(10 20 30)))
+(newline)
