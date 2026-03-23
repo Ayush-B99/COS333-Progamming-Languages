@@ -1,0 +1,21 @@
+to polygon :n :side
+polygon.helper :n :side 0
+end
+
+to polygon.helper :n :side :count
+if :count >= :n [stop]
+forward :side
+right 360/:n
+polygon.helper :n :side :count + 1
+end
+
+to test.polygon :n :side
+clearscreen
+home
+penup
+back 100
+pendown
+polygon :n :side
+hideturtle
+end
+
